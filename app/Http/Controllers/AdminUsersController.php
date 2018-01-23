@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class AdminUsersController extends Controller {
 
@@ -12,7 +13,9 @@ class AdminUsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('admin.users.index');
+        $users = User::all();
+
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -34,15 +37,15 @@ class AdminUsersController extends Controller {
         if (isset($_POST['submit'])) {
             $this->validate($request, [
                 'email' => 'required|email|min:16|max:100',
-                'username' => 'required|min:5|max:30',
+                'name' => 'required|min:5|max:30',
                 'password' => 'required|min:8|max:20',
                     ], [
                 'email.required' => 'Email can not be empty',
                 'email.min' => 'Email can not be shoter 6 letters',
                 'email.max' => 'Email too long',
-                'username.required' => 'Username can not be empty',
-                'username.min' => 'Username can not be shoter 5 letters',
-                'username.max' => 'Username can not be over 30 letters',
+                'name.required' => 'Name can not be empty',
+                'name.min' => 'Name can not be shoter 5 letters',
+                'name.max' => 'Name can not be over 30 letters',
                 'password.required' => 'Password can not be empty',
                 'password.min' => 'Password can not be shoter 8 letters',
                 'password.max' => 'Password can not be over 20 letters',
@@ -60,7 +63,7 @@ class AdminUsersController extends Controller {
             array_push($parent, $child);
             $request->session()->put('users', $parent);
         }
-        return view('admin.users.create-user');
+//        return view('admin.users.create-user');
     }
 
     /**
@@ -80,7 +83,11 @@ class AdminUsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        //
+//        echo '<script>alert("'.$id.'");</script>';
+        $user = User::find($id);
+//        echo '<script>alert("'.var_dump($user).'");</script>';
+//        sleep(20);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -91,7 +98,28 @@ class AdminUsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        if (isset($_POST['submit'])) {
+            $this->validate($request, [
+                'email' => 'required|email|min:16|max:100',
+                'name' => 'required|min:5|max:30',
+                'password' => 'required|min:8|max:20',
+                    ], [
+                'email.required' => 'Email can not be empty',
+                'email.email' => 'This is not Email',
+                'email.min' => 'Email can not be shoter 6 letters',
+                'email.max' => 'Email too long',
+                'name.required' => 'Name can not be empty',
+                'name.min' => 'Name can not be shoter 5 letters',
+                'name.max' => 'Name can not be over 30 letters',
+                'password.required' => 'Password can not be empty',
+                'password.min' => 'Password can not be shoter 8 letters',
+                'password.max' => 'Password can not be over 20 letters',
+            ]);
+            
+            if(count($errors)>= 1) {
+                return view('admin.users.edit');
+            }
+        }
     }
 
     /**

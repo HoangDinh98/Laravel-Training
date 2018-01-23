@@ -7,27 +7,30 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Email</th>
             <th>Created Date</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        if (Session::has('users')) {
-            foreach (Session::get('users') as $key => $values) {
-                ?>
-                <tr>
-                    <td><?php echo ($key + 1) ?></td>
-                    <td><?php echo ($values[0]) ?></td>
-                    <td><?php echo ($values[1]) ?></td>
-                </tr>
-                <?php
-            }
-        } else {
+        if (isset($users)) {
             ?>
+            @foreach ($users AS $key => $value)
             <tr>
-                <td>No user</td>
+                <td>{{ $value->id }}</td>
+                <td>{{ $value->name }}</td>
+                <td>{{ $value->email }}</td>
+                <td>{{ $value->created_at }}</td>
+                <td>
+                    <a href="{{route('admin.users.edit', $value->id)}}">Edit</a> &nbsp;&nbsp;
+                    <a href="{{route('admin.users.destroy', $value->id)}}">Delete</a> &nbsp;&nbsp;
+                </td>
             </tr>
+            @endforeach
             <?php
+        } else {
+            echo '<tr><td> No User </td></tr>';
         }
         ?>
     </tbody>
