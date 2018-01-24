@@ -115,11 +115,24 @@ class AdminUsersController extends Controller {
                 'password.min' => 'Password can not be shoter 8 letters',
                 'password.max' => 'Password can not be over 20 letters',
             ]);
-            
-            if(count($errors)>= 1) {
-                return view('admin.users.edit');
+
+            if (count($errors) >= 1) {
+//                return view('admin.users.edit');
+                return redirect('admin/users/edit');
             }
         }
+        $user = User::findOrFail($id);
+        
+        if (trim($request->password) == '') {
+
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+
+        $user->update($input);
+        return redirect('/admin/users');
     }
 
     /**

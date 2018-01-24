@@ -17,7 +17,7 @@
             <div class=" row  form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" class="form-control" placeholder="Enter Email" 
-                       value="<?php if(isset($user)) echo $user['email']; else  echo old('email') ?>">
+                       value="<?php if(old('email')!='') echo old('email'); else echo $user['email']?>">
                 <span class="text-danger">{{ $errors->first('email') }}</span>
             </div>
 
@@ -39,9 +39,7 @@
                 <input type="submit" name="submit" class="btn btn-success" value="submit" />
             </div>
             <?php 
-//            echo '<div class="test">'.$user.'</div>';
             unset($user);
-                
             ?>
         </form>
     </div>
