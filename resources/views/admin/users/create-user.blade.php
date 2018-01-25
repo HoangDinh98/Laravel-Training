@@ -21,57 +21,46 @@
 
 
             <div class=" row form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Enter user name" value="{{ old('username') }}">
-                <span class="text-danger">{{ $errors->first('username') }}</span>
+                <label for="name">Full name:</label>
+                <input type="text" id="username" name="name" class="form-control" placeholder="Enter full name" value="{{ old('name') }}">
+                <span class="text-danger">{{ $errors->first('name') }}</span>
             </div>        
 
             <div class=" row form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" value="{{ old('password') }}">
                 <span class="text-danger">{{ $errors->first('password') }}</span>
-            </div> 
+            </div>
+            
+            <div class=" row form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <label for="password">Re-Password:</label>
+                <input type="password" id="repassword" name="repassword" class="form-control" value="{{ old('repassword') }}">
+                <span class="text-danger">{{ $errors->first('repassword') }}</span>
+            </div>
+            
+            <div class=" row form-group">
+                <label for="role">Role: </label>
+                <select id="role_id" name="role_id">
+                    @foreach ($roles AS $key => $role)
+                    <option value="{{ $role->id }}" selected="{{ $role->id==2?'true':'false' }}" >
+                        {{ $role->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class=" row form-group">
+                <label for="role">Active: </label>
+                <select id="is_active" name="is_active">
+                    <option value="0">No</option>
+                    <option value="1" selected="true">Yes</option>
+                </select>
+            </div>
 
             <div class="form-group">
                 <input type="submit" name="submit" class="btn btn-success" value="submit" />
             </div>
         </form>
-    </div>
-    <div class="col-md-8">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Create Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (Session::has('users')) {
-                    foreach (Session::get('users') as $key => $values) {
-                        ?>
-                        <tr>
-                            <td><?php echo ($key + 1) ?></td>
-                            <td><?php echo ($values[0]) ?></td>
-                            <td><?php echo ($values[1]) ?></td>
-                            <td><?php echo ($values[2]) ?></td>
-                            <td><?php echo ($values[3]) ?></td>
-                        </tr>
-                        <?php
-                    }
-                } else {
-                    ?>
-                    <tr>
-                        <td>No user</td>
-                    </tr>
-                    <?php
-                }
-                ?>
-            </tbody>
-        </table>
     </div>
 </div>
 @endsection

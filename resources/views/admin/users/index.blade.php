@@ -8,6 +8,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Created Date</th>
             <th>Action</th>
         </tr>
@@ -21,6 +22,7 @@
                 <td>{{ $value->id }}</td>
                 <td>{{ $value->name }}</td>
                 <td>{{ $value->email }}</td>
+                <td>{{ $value->role_id==1?'Admin':($value->role_id==2?'User':'Another') }}</td>
                 <td>{{ $value->created_at }}</td>
                 <td>
                     <a href="{{route('admin.users.edit', $value->id)}}">Edit</a> &nbsp;&nbsp;

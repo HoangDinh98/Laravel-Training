@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use App\User;
+use App\Role;
 
 class AdminUsersController extends Controller {
 
@@ -23,8 +26,9 @@ class AdminUsersController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) {
-        return view('admin.users.create-user');
+    public function create() {
+        $roles = Role::all();
+        return view('admin.users.create-user', ['roles' => $roles]);
     }
 
     /**
@@ -39,6 +43,7 @@ class AdminUsersController extends Controller {
                 'email' => 'required|email|min:16|max:100',
                 'name' => 'required|min:5|max:30',
                 'password' => 'required|min:8|max:20',
+                'repassword' => 'required|same:password',
                     ], [
                 'email.required' => 'Email can not be empty',
                 'email.min' => 'Email can not be shoter 6 letters',
@@ -51,17 +56,26 @@ class AdminUsersController extends Controller {
                 'password.max' => 'Password can not be over 20 letters',
             ]);
 
-            if (!$request->session()->exists('users'))
-                $request->session()->put('users', array());
 
-            $child = array();
-            $child[] = $_POST['username'];
-            $child[] = $_POST['email'];
-            $child[] = $_POST['password'];
-            $child[] = date("Y-m-d h:i:sa");
-            $parent = $request->session()->get('users');
-            array_push($parent, $child);
-            $request->session()->put('users', $parent);
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+
+            User::create($input);
+
+            $users = User::all();
+
+            return view('admin.users.index', ['users' => $users]);
+//            if (!$request->session()->exists('users'))
+//                $request->session()->put('users', array());
+//
+//            $child = array();
+//            $child[] = $_POST['username'];
+//            $child[] = $_POST['email'];
+//            $child[] = $_POST['password'];
+//            $child[] = date("Y-m-d h:i:sa");
+//            $parent = $request->session()->get('users');
+//            array_push($parent, $child);
+//            $request->session()->put('users', $parent);
         }
 //        return view('admin.users.create-user');
     }
@@ -122,7 +136,7 @@ class AdminUsersController extends Controller {
             }
         }
         $user = User::findOrFail($id);
-        
+
         if (trim($request->password) == '') {
 
             $input = $request->except('password');
