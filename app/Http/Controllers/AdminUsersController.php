@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\User;
@@ -16,8 +17,17 @@ class AdminUsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+//        $users = User::all();
+//        Use ORM
+//        $users = DB::table('users')
+//                ->join('roles', 'users.role_id', '=', 'roles.id')
+//                ->select('users.*', 'roles.name AS role')
+//                ->get();
+        
+//        Use Relation
+        
         $users = User::all();
-
+        
         return view('admin.users.index', ['users' => $users]);
     }
 

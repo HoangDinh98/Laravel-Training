@@ -31,24 +31,24 @@
                 <input type="password" id="password" name="password" class="form-control" value="{{ old('password') }}">
                 <span class="text-danger">{{ $errors->first('password') }}</span>
             </div>
-            
+
             <div class=" row form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                 <label for="password">Re-Password:</label>
                 <input type="password" id="repassword" name="repassword" class="form-control" value="{{ old('repassword') }}">
                 <span class="text-danger">{{ $errors->first('repassword') }}</span>
             </div>
-            
+
             <div class=" row form-group">
                 <label for="role">Role: </label>
                 <select id="role_id" name="role_id">
-                    @foreach ($roles AS $key => $role)
-                    <option value="{{ $role->id }}" selected="{{ $role->id==2?'true':'false' }}" >
+                    @foreach ($roles AS $role)
+                    <option value="{{ $role->id }}" {{ $role->id==2?'selected':'' }} >
                         {{ $role->name }}
                     </option>
                     @endforeach
                 </select>
             </div>
-            
+
             <div class=" row form-group">
                 <label for="role">Active: </label>
                 <select id="is_active" name="is_active">

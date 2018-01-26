@@ -22,7 +22,9 @@
                 <td>{{ $value->id }}</td>
                 <td>{{ $value->name }}</td>
                 <td>{{ $value->email }}</td>
-                <td>{{ $value->role_id==1?'Admin':($value->role_id==2?'User':'Another') }}</td>
+<!--                <td>{{ $value->role_id==1?'Admin':($value->role_id==2?'User':'Another') }}</td>-->
+<!--                <td>{{ $value->role }}</td>-->
+                <td>{{ $value->role ? $value->role->name:'Another' }}</td>
                 <td>{{ $value->created_at }}</td>
                 <td>
                     <a href="{{route('admin.users.edit', $value->id)}}">Edit</a> &nbsp;&nbsp;
