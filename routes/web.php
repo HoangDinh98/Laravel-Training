@@ -38,6 +38,12 @@ Route::get('/', function () {
 Route::resource('admin/users',"AdminUsersController", array('as'=>'admin'));
 Auth::routes();
 
+Route::resource('admin/categories',"AdminCategoriesController", array('as'=>'admin'));
+Auth::routes();
+
+Route::resource('admin/posts',"AdminPostsController", array('as'=>'admin'));
+Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();

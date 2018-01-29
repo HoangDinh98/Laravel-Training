@@ -1,8 +1,5 @@
 @extends ('layout.admin');
 @section ('content')
-<link rel="stylesheet" href="{{ url('bootstrap-3.3.7/css/bootstrap.css') }}">
-<script src="{{ url('bootstrap-3.3.7/js/bootstrap.js') }}"></script>
-<script src="{{ url('bootstrap-3.3.7/js/jquery-3.2.1.js') }}"></script>
 
 <h1 style="text-align: center; color: #123489;">
     Create User

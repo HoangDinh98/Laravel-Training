@@ -15,7 +15,6 @@
             <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/AdminUsersController.php</file>
             <file>file:/C:/xampp/htdocs/laravel-training/resources/views/admin/users/index.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravel-training/resources/views/admin/users/create-user.blade.php</file>
-            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/AdminPostsController.php</file>
             <file>file:/C:/xampp/htdocs/laravel-training/app/User.php</file>
             <file>file:/C:/xampp/htdocs/laravel-training/app/Role.php</file>
         </group>

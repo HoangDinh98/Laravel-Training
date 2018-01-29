@@ -1,7 +1,7 @@
 @extends ('layout.admin')
 
 @section('content')
-<h1>Posts</h1>
+<h1>Users</h1>
 <table class="table">
     <thead>
         <tr>
@@ -20,15 +20,13 @@
             @foreach ($users AS $key => $value)
             <tr>
                 <td>{{ $value->id }}</td>
-                <td>{{ $value->name }}</td>
+                <td><a href="{{route('admin.users.edit', $value->id)}}">{{ $value->name }}</a></td>
                 <td>{{ $value->email }}</td>
-<!--                <td>{{ $value->role_id==1?'Admin':($value->role_id==2?'User':'Another') }}</td>-->
-<!--                <td>{{ $value->role }}</td>-->
                 <td>{{ $value->role ? $value->role->name:'Another' }}</td>
                 <td>{{ $value->created_at }}</td>
                 <td>
-                    <a href="{{route('admin.users.edit', $value->id)}}">Edit</a> &nbsp;&nbsp;
-                    <a href="{{route('admin.users.destroy', $value->id)}}">Delete</a> &nbsp;&nbsp;
+                    <a class="button-a edit-button" href="{{route('admin.users.edit', $value->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
+                    <a class="button-a delete-button" href="{{route('admin.users.destroy', $value->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
             @endforeach

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Category;
 
 class AdminCategoriesController extends Controller
 {
@@ -13,7 +15,8 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -23,7 +26,7 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -34,7 +37,15 @@ class AdminCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ], [
+            'name.required' => 'Category Name can not be empty'
+        ]);
+        
+        $input = ['name' => $request->input('name')];
+        
+        Category::create($input);
     }
 
     /**

@@ -15,7 +15,15 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
-
+    
+    <!--ADD NEW CSS-->
+    <!--<link href="{{asset('bootstrap-3.3.7/css/bootstrap.css')}}" rel="stylesheet">-->
+    <link href="{{asset('fonts/font-awesome-4.7.0/css/font-awesome.css')}}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url('bootstrap-3.3.7/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url('css/mystyle.css') }}">
+    <script src="{{ url('bootstrap-3.3.7/js/bootstrap.js') }}"></script>
+    <script src="{{ url('bootstrap-3.3.7/js/jquery-3.2.1.js') }}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,11 +146,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/posts">All Posts</a>
+                                <a href="{{ route('admin.posts.index') }}">All Posts</a>
                             </li>
 
                             <li>
-                                <a href="/posts/create">Create Post</a>
+                                <a href="{{ route('admin.posts.create') }}">Create Post</a>
                             </li>
 
                         </ul>
@@ -154,11 +162,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Categories<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/categories">All Categories</a>
+                                <a href="{{ route('admin.categories.index') }}">All Categories</a>
                             </li>
 
                             <li>
-                                <a href="/categories/create">Create Category</a>
+                                <a href="{{ route('admin.categories.create') }}">Create Category</a>
                             </li>
 
                         </ul>
@@ -170,7 +178,7 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/media">All Media</a>
+                                <a href="">All Media</a>
                             </li>
 
                             <li>

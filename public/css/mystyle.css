@@ -1,0 +1,33 @@
+.button-a {
+    padding: 2px 5px;
+    color: #93a1a1;
+}
+
+.edit-button {
+    color: #009688;
+    font-size: 28px;
+}
+
+.edit-button:hover {
+    background-color: #DDDDDD;
+    border-radius: 5px;
+    color: #37A68E;
+}
+
+.delete-button {
+    padding: 2px 8px;
+    color: #bb2417;
+    font-size: 28px;
+}
+
+.delete-button:hover {
+    background-color: #DDDDDD;
+    border-radius: 5px;
+    color: #Fb4437;
+}
+
+
+.button-a:hover, .button-a:active, .button-a:focus {
+    cursor: pointer !important;
+    text-decoration: none;
+}
