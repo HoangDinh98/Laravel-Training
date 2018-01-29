@@ -1,3 +1,8 @@
+<?php
+
+use Carbon\Carbon;
+?>
+
 @extends ('layout.admin')
 
 @section('content')
@@ -10,28 +15,49 @@
             <th>Owner</th>
             <th>Category</th>
             <th>Title</th>
-            <th>body</th>
-            <th>Post link</th>
-            <th>Comments</th>
+            <th>Content</th>
             <th>Created at</th>
-            <th>Update</th>
+            <th>Updated at</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
+        @if(count($posts) > 0)
+        @foreach($posts as $post)
 
+        <tr>
+            <td>{{$post->id}}</td>
+            <td><img height="50" src="{{ asset($post->photo) }}" alt=""></td>
+            <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}">{{ $post->owner }}</a></td>
+            <td>{{ $post->category }}</td>
+            <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}">{{$post->title}}</a></td>
+            <td>{{str_limit($post->body, 30)}}</td>
+            <td>{{Carbon::parse($post->created_at)->diffForHumans()}}</td>
+            <td>{{Carbon::parse($post->updated_at)->diffForHumans()}}</td>
+            <td>
+                <a class="button-a edit-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
+                <a class="button-a edit-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-comments-o" aria-hidden="true"></i></a>&nbsp;
+                <a class="button-a delete-button" href="{{route('admin.posts.destroy', $post->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+            </td>
         </tr>
+
+        @endforeach
+
+        @else 
+        <tr>
+            <td>No Posts</td>
+        </tr>
+        @endif
+
     </tbody>
 </table>
+
+
+<div class="row">
+    <div class="col-lg-6 col-sm-offset-5">
+        {{ $posts->render() }}
+    </div>
+
+</div>
 @endsection
 

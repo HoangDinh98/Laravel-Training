@@ -31,3 +31,8 @@
     cursor: pointer !important;
     text-decoration: none;
 }
+
+
+.select-box{
+    width: 100%;
+}

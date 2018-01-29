@@ -46,6 +46,7 @@ class AdminCategoriesController extends Controller
         $input = ['name' => $request->input('name')];
         
         Category::create($input);
+        return $this->index();
     }
 
     /**
@@ -67,7 +68,8 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -79,7 +81,17 @@ class AdminCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => 'Category Name can not be empty'
+        ]);
+        
+        $category = Category::findOrFail($id);
+
+        $category->update($request->all());
+
+        return redirect('/admin/categories');
     }
 
     /**
