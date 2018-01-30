@@ -3,6 +3,12 @@
     color: #93a1a1;
 }
 
+.button-space {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
 .edit-button {
     color: #009688;
     font-size: 28px;
@@ -32,7 +38,18 @@
     text-decoration: none;
 }
 
+.form-delete{
+   display: inline-block; 
+}
+
 
 .select-box{
     width: 100%;
+}
+
+.img-display{
+    display: inline-block;
+    padding: 20px 20px;
+    margin: 0px 0px -16px -20px;
+    border-radius: 30px;
 }
