@@ -73,7 +73,6 @@ class AdminUsersController extends Controller {
             User::create($input);
 
             $users = User::all();
-
             return view('admin.users.index', ['users' => $users]);
 //            if (!$request->session()->exists('users'))
 //                $request->session()->put('users', array());
