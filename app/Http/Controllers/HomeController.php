@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
+        $categories = Category::get();
+        
+        return view('home', ['posts'=>$posts, 'categories' => $categories]);
+    }
+    
+    public function post($id) {
+
+
+        $post = Post::findOrFail($id);
+        $categories = Category::get();
+
+        return view('post', compact('post', 'categories'));
     }
 }

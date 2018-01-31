@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Category;
+use App\Post;
+use App\Photo;
 
-class AdminCategoriesController extends Controller
-{
+
+class AdminCategoriesController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $categories = Category::all();
         return view('admin.categories.index', ['categories' => $categories]);
     }
@@ -24,8 +27,7 @@ class AdminCategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.categories.create');
     }
 
@@ -35,16 +37,15 @@ class AdminCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $this->validate($request, [
             'name' => 'required',
-        ], [
+                ], [
             'name.required' => 'Category Name can not be empty'
         ]);
-        
+
         $input = ['name' => $request->input('name')];
-        
+
         Category::create($input);
         return $this->index();
     }
@@ -55,8 +56,7 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -66,8 +66,7 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $category = Category::findOrFail($id);
         return view('admin.categories.edit', compact('category'));
     }
@@ -79,14 +78,13 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $this->validate($request, [
             'name' => 'required'
-        ], [
+                ], [
             'name.required' => 'Category Name can not be empty'
         ]);
-        
+
         $category = Category::findOrFail($id);
 
         $category->update($request->all());
@@ -100,8 +98,20 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $category = Category::findOrFail($id);
+        if ($category) {
+            $posts = Post::where('category_id', $id)->get();
+            if ($posts) {
+                foreach ($posts AS $key => $post) {
+                    $photo = Photo::where('post_id', $post->id)->first();
+                    $folder = str_before($photo->path, $post->id) . $post->id;
+                    File::deleteDirectory(public_path($folder));
+                    $post->delete();
+                }
+            }
+            $category->delete();
+        }
+        return redirect('/admin/categories');
     }
 }

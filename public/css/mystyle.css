@@ -53,3 +53,14 @@
     margin: 0px 0px -16px -20px;
     border-radius: 30px;
 }
+
+.img-round {
+    border-radius: 15px;
+}
+
+.media-box {
+    display: inline-block;
+    text-align: center;
+    padding: 20px 20px;
+    margin: 0px 0px -16px -20px;
+}

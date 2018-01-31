@@ -26,7 +26,15 @@
                 <td>{{ $value->created_at }}</td>
                 <td>
                     <a class="button-a edit-button" href="{{route('admin.users.edit', $value->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-                    <a class="button-a delete-button" href="{{route('admin.users.destroy', $value->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    @if($value->id !=1)
+                    <form action="{{route('admin.users.destroy', $value->id)}}" method="POST" class="form-delete"> 
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" name="submit" class="button-space button-a delete-button">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

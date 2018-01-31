@@ -44,8 +44,11 @@ Auth::routes();
 Route::resource('admin/posts',"AdminPostsController", array('as'=>'admin'));
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('admin/media',"AdminMediaController", array('as'=>'admin'));
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/post/{id}',['as'=>'home.post' , 'uses'=>'HomeController@post'] );

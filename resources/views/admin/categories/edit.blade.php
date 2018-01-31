@@ -26,6 +26,7 @@
         
         <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
             <input type="submit" name="delete_submit" class="btn btn-danger" value="Delete">
         </form>
     </div>

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
 
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
 class AdminPostsController extends Controller {
 
     /**
@@ -34,6 +36,8 @@ class AdminPostsController extends Controller {
         return view('admin.posts.index', compact('posts'));
         echo var_dump(compact('posts'));
     }
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -194,11 +198,5 @@ class AdminPostsController extends Controller {
             $post->delete();
         }
         return redirect('/admin/posts');
-//        echo var_dump($folder) . '<br>';
-//        echo var_dump(public_path($folder)) . '<br>';
-//        echo var_dump($folder2) . '<br>';
-//        echo var_dump($folder2) . '<br>';
-//        echo var_dump($status) . '<br>';
-//        echo var_dump($directories);
     }
 }
