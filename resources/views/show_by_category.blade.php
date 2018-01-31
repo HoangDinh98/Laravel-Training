@@ -3,9 +3,11 @@
 @section('content')
 
 <div class="container">
-
-    @if($posts)
+    @if($category_name)
+    <h4>All Posts of {{$category_name}}</h4>
+    @endif
     
+    @if(count($posts) > 0)
     @foreach($posts as $post)
 
 
@@ -28,7 +30,9 @@
 
 
     @endforeach
-
+    
+    @else 
+    <p>No Posts</p>
     @endif
 
     <div class="row">

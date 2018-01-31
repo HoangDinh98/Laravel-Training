@@ -36,8 +36,6 @@ class AdminPostsController extends Controller {
         return view('admin.posts.index', compact('posts'));
         echo var_dump(compact('posts'));
     }
-    
-    
 
     /**
      * Show the form for creating a new resource.
@@ -106,6 +104,21 @@ class AdminPostsController extends Controller {
      */
     public function show($id) {
         //
+    }
+
+    public function showByAuthor($author_id) {
+        $posts = DB::table('posts')
+                ->join('photos', 'posts.id', '=', 'photos.post_id')
+                ->join('users', 'posts.user_id', '=', 'users.id')
+                ->join('categories', 'posts.category_id', '=', 'categories.id')
+                ->select('posts.*', 'photos.path AS photo', 'users.name AS owner', 'categories.name AS category')
+                ->where([
+                    ['posts.user_id', '=', $author_id],
+                    ['photos.is_thumbnail', '=', 1]
+                    ])
+                ->orderBy('posts.created_at', 'desc')
+                ->paginate(2);
+        return view('admin.posts.show_by_author', compact('posts'));
     }
 
     /**
@@ -193,10 +206,11 @@ class AdminPostsController extends Controller {
         $post = Post::findOrFail($id);
         if ($post) {
             $photos = Photo::where('post_id', $id)->first();
-            $folder = str_before($photos->path, $id).$id;
+            $folder = str_before($photos->path, $id) . $id;
             File::deleteDirectory(public_path($folder));
             $post->delete();
         }
         return redirect('/admin/posts');
     }
+
 }

@@ -30,7 +30,7 @@
             <span class="text-danger">{{ $errors->first('category_id') }}</span>
         </div>  
         <div class="form-group " style="">
-            <img src="{{$post->photo?asset($post->photo):'http://placehold.it/400x300'}}" width="400px" alt="" class="img-responsive img-rounded img-display">
+            <img src="{{File::exists(public_path($post->photo))?asset($post->photo):'http://placehold.it/1200x800'}}" width="400px" alt="" class="img-responsive img-rounded img-display">
         </div> <br>
 
         <div class="  form-group {{ $errors->has('photo_id') ? 'has-error' : '' }}">

@@ -2,12 +2,18 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+
+$author = '';
 ?>
 
 @extends ('layout.admin')
 
 @section('content')
-<h1>Posts</h1>
+<?php
+foreach ($posts as $post)
+    $author = $post->owner;
+?>
+<h3> All posts of <?php echo $author ?></h3>
 <table class="table">
     <thead>
         <tr>
@@ -30,9 +36,9 @@ use Illuminate\Support\Facades\File;
             <td>{{$post->id}}</td>
             <td>
                 <img height="50" 
-                     src="{{ File::exists(public_path($post->photo))?asset($post->photo):'http://placehold.it/1200x800' }}" alt="">
+                     src="{{ File::exists(public_path($post->photo))?asset($post->photo):'http://placehold.it/400x300' }}" alt="">
             </td>
-            <td><a href="{{ route('admin.posts.showByAuthor', $post->user_id) }}">{{ $post->owner }}</a></td>
+            <td>{{ $post->owner }}</td>
             <td>{{ $post->category }}</td>
             <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}">{{$post->title}}</a></td>
             <td>{{str_limit($post->body, 30)}}</td>

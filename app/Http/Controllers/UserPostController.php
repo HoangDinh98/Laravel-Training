@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
-use App\Photo;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 
-class AdminMediaController extends Controller {
+use App\Comment;
+
+class UserPostController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -17,21 +16,7 @@ class AdminMediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $media = DB::table('posts')
-                ->join('photos', 'posts.id', '=', 'photos.post_id')
-                ->select('posts.title AS post_name', 'photos.id AS photo_id', 'photos.path AS photo')
-                ->where('photos.is_thumbnail', '=', 1)
-                ->orderBy('posts.created_at', 'desc')
-                ->paginate(5);
-
-        $mediafull = DB::table('posts')
-                ->join('photos', 'posts.id', '=', 'photos.post_id')
-                ->select('posts.title AS post_name', 'photos.id AS photo_id', 'photos.path AS photo')
-                ->where('photos.is_thumbnail', '!=', 1)
-                ->orderBy('posts.created_at', 'desc')
-                ->paginate(5);
-
-        return view('admin.media.index', compact('media', 'mediafull'));
+        //
     }
 
     /**
@@ -49,6 +34,20 @@ class AdminMediaController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function addComment(Request $request) {
+        $input = $request->all();
+        $user = Auth::user();
+        if ($user) {
+            $comment = new Comment();
+            $input['author'] = $user->name;
+            $input['email'] = $user->email;
+            $input['is_active'] = 1;
+            $comment->create($input);
+        }
+        
+        return redirect('post/'.$input['post_id']);
+    }
+
     public function store(Request $request) {
         //
     }
@@ -91,17 +90,7 @@ class AdminMediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $photo = Photo::findOrFail($id);
-        if ($photo) {
-            $file = $photo->path;
-
-            if ($photo->is_thumbnail == 1) {
-                File::delete($file);
-            } else {
-                File::delete($file);
-                $photo->delete();
-            }
-        }
-        return redirect('/admin/media');
+        //
     }
+
 }

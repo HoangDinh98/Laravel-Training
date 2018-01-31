@@ -35,6 +35,13 @@
         ?>
     </tbody>
 </table>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-offset-5">
+        {{ $categories->render() }}
+    </div>
+
+</div>
 @endsection
 
 

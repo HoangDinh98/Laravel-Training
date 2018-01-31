@@ -23,11 +23,10 @@ class AdminUsersController extends Controller {
 //                ->join('roles', 'users.role_id', '=', 'roles.id')
 //                ->select('users.*', 'roles.name AS role')
 //                ->get();
-        
 //        Use Relation
-        
-        $users = User::all();
-        
+
+        $users = User::where('is_active', '=', 1)->orderBy('created_at', 'desc')->paginate(5);
+
         return view('admin.users.index', ['users' => $users]);
     }
 
@@ -123,26 +122,12 @@ class AdminUsersController extends Controller {
     public function update(Request $request, $id) {
         if (isset($_POST['submit'])) {
             $this->validate($request, [
-                'email' => 'required|email|min:16|max:100',
                 'name' => 'required|min:5|max:30',
-                'password' => 'required|min:8|max:20',
                     ], [
-                'email.required' => 'Email can not be empty',
-                'email.email' => 'This is not Email',
-                'email.min' => 'Email can not be shoter 6 letters',
-                'email.max' => 'Email too long',
                 'name.required' => 'Name can not be empty',
                 'name.min' => 'Name can not be shoter 5 letters',
                 'name.max' => 'Name can not be over 30 letters',
-                'password.required' => 'Password can not be empty',
-                'password.min' => 'Password can not be shoter 8 letters',
-                'password.max' => 'Password can not be over 20 letters',
             ]);
-
-            if (count($errors) >= 1) {
-//                return view('admin.users.edit');
-                return redirect('admin/users/edit');
-            }
         }
         $user = User::findOrFail($id);
 
@@ -165,7 +150,10 @@ class AdminUsersController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+        $user = User::findOrFail($id);
+        
+        $user->update(['is_active' => 0]);
+        return redirect('/admin/users');
     }
 
 }

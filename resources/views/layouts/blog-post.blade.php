@@ -9,12 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Orion Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
+    <link href="{{asset('css/mystyle.css')}}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +39,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="navbar-brand" href="{{url('/home')}}">ORION Blog</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

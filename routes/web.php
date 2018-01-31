@@ -47,8 +47,20 @@ Auth::routes();
 Route::resource('admin/media',"AdminMediaController", array('as'=>'admin'));
 Auth::routes();
 
+Route::get('admin/posts/showByAuthor/{id}', 'AdminPostsController@showByAuthor')->name('admin.posts.showByAuthor');
+Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
+
+Route::get('/home/category/{id}', 'HomeController@showByCategory')->name('home.showByCategory');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/post/{id}',['as'=>'home.post' , 'uses'=>'HomeController@post'] );
+
+Route::resource('/posts',"UserPostController", array('as'=>'user'));
+Auth::routes();
+
+Route::post('/posts/addComment/{id}',"UserPostController@addComment")->name('user.posts.addComment');
+Auth::routes();
