@@ -38,7 +38,7 @@ class AdminUsersController extends Controller {
      */
     public function create() {
         $roles = Role::all();
-        return view('admin.users.create-user', ['roles' => $roles]);
+        return view('admin.users.create', ['roles' => $roles]);
     }
 
     /**

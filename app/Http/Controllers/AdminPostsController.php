@@ -10,6 +10,8 @@ use App\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\Filesystem;
 
 class AdminPostsController extends Controller {
 
@@ -184,10 +186,19 @@ class AdminPostsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Post::findOrFail($id)->delete();
-//        $post = Post::findOrFail($id);
-//        echo var_dump($post);
+        $post = Post::findOrFail($id);
+        if ($post) {
+            $photos = Photo::where('post_id', $id)->first();
+            $folder = str_before($photos->path, $id).$id;
+            File::deleteDirectory(public_path($folder));
+            $post->delete();
+        }
         return redirect('/admin/posts');
+//        echo var_dump($folder) . '<br>';
+//        echo var_dump(public_path($folder)) . '<br>';
+//        echo var_dump($folder2) . '<br>';
+//        echo var_dump($folder2) . '<br>';
+//        echo var_dump($status) . '<br>';
+//        echo var_dump($directories);
     }
-
 }

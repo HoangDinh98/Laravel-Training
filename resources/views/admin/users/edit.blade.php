@@ -17,7 +17,7 @@
             <div class=" row  form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" class="form-control" placeholder="Enter Email" 
-                       value="<?php if(old('email')!='') echo old('email'); else echo $user['email']?>">
+                       value="<?php if(old('email')!='') echo old('email'); else echo $user['email']?>" disabled>
                 <span class="text-danger">{{ $errors->first('email') }}</span>
             </div>
 
