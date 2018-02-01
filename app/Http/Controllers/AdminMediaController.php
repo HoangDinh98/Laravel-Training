@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
 class AdminMediaController extends Controller {
 
     /**

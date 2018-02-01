@@ -9,6 +9,7 @@ use App\Category;
 use App\Post;
 use App\Photo;
 
+date_default_timezone_set("Asia/Ho_Chi_Minh");
 
 class AdminCategoriesController extends Controller {
 

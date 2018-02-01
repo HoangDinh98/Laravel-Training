@@ -21,7 +21,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a href="{{ url('post/'. $post->id) }}">{{$post->title}}</a></h4>
-                    <?php echo str_limit($post->body, 300); ?>      
+                    {{ str_limit($post->body, 300) }}     
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ class AdminPostsController extends Controller {
                 ->select('posts.*', 'photos.path AS photo', 'users.name AS owner', 'categories.name AS category')
                 ->where('photos.is_thumbnail', '=', 1)
                 ->orderBy('posts.created_at', 'desc')
-                ->paginate(2);
+                ->paginate(5);
 
         return view('admin.posts.index', compact('posts'));
         echo var_dump(compact('posts'));

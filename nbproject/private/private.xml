@@ -11,6 +11,29 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/AdminUsersController.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_182039_create_photos_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/UserPostController.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/AdminPostsController.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/show_by_category.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_181949_create_comments_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_181655_create_users_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_182409_create_password_resets_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/admin/categories/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/post.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/home.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Comment.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_181914_create_posts_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/admin/posts/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/ExController.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/admin/posts/show_by_author.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/database/migrations/2018_01_25_181755_create_categories_table.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/config/view.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/resources/views/post.blade_1.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/PNVController.php</file>
+            <file>file:/C:/xampp/htdocs/laravel-training/app/Http/Controllers/AdminMediaController.php</file>
+        </group>
     </open-files>
 </project-private>

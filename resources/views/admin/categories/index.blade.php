@@ -24,7 +24,14 @@
                 <td>{{ $category->updated_at }}</td>
                 <td>
                     <a class="button-a edit-button" href="{{route('admin.categories.edit', $category->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-                    <a class="button-a delete-button" href="{{route('admin.categories.destroy', $category->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <!--<a class="button-a delete-button" href="{{route('admin.categories.destroy', $category->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
+                    <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST" class="form-delete"> 
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" name="submit" class="button-space button-a delete-button">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             @endforeach

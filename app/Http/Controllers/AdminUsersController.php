@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use App\User;
 use App\Role;
 
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
 class AdminUsersController extends Controller {
 
     /**
@@ -71,8 +73,7 @@ class AdminUsersController extends Controller {
 
             User::create($input);
 
-            $users = User::all();
-            return view('admin.users.index', ['users' => $users]);
+            return redirect('/admin/users');
 //            if (!$request->session()->exists('users'))
 //                $request->session()->put('users', array());
 //
