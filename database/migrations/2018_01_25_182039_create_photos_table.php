@@ -19,7 +19,7 @@ class CreatePhotosTable extends Migration {
             $table->integer('comment_id')->unsigned()->nullable();
             $table->integer('is_thumbnail')->default(1);
             $table->integer('is_active')->default(1);
-            $table->string('path')->default("No image");
+            $table->string('path', 255)->default("No image");
             $table->timestamps();
         });
 

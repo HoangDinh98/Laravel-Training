@@ -2,6 +2,13 @@
 
 @section('content')
 <h1>Users</h1>
+@if (Session::has('notification'))
+<div class="alert alert-success" id="notify">
+    <button data-dismiss="alert" class="close">×</button>
+    {!! Session::get('notification') !!}
+</div>
+@endif
+
 <table class="table">
     <thead>
         <tr>

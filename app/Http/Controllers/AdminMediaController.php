@@ -8,6 +8,7 @@ use App\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -103,6 +104,8 @@ class AdminMediaController extends Controller {
                 File::delete($file);
                 $photo->delete();
             }
+            
+            Session::flash('notification','Delete Photo Successful');
         }
         return redirect('/admin/media');
     }

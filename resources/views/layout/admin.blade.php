@@ -365,5 +365,6 @@
 
 
 </body>
+<script src="{{asset('js/myscript.js')}}"></script>
 
 </html>

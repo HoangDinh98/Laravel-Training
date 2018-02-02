@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Role;
+use App\Http\Controllers\Standard;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -71,8 +73,11 @@ class AdminUsersController extends Controller {
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
 
+            $input['name'] = Standard::standardize_data($input['name'], 1);
+
             User::create($input);
 
+            Session::flash('notification', 'Add user <b>' . $input['name'] . '</b> Successful');
             return redirect('/admin/users');
 //            if (!$request->session()->exists('users'))
 //                $request->session()->put('users', array());
@@ -139,8 +144,10 @@ class AdminUsersController extends Controller {
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
         }
+        $input['name'] = Standard::standardize_data($input['name'], 1);
 
         $user->update($input);
+        Session::flash('notification', 'Update user <b>' . $input['name'] . '</b> Successful');
         return redirect('/admin/users');
     }
 
@@ -152,8 +159,9 @@ class AdminUsersController extends Controller {
      */
     public function destroy($id) {
         $user = User::findOrFail($id);
-        
+
         $user->update(['is_active' => 0]);
+        Session::flash('notification', 'Delete user <b>' . $user->name . '</b> Successful');
         return redirect('/admin/users');
     }
 

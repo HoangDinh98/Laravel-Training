@@ -6,7 +6,7 @@
 </h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 col-md-offset-3">
         <form action="{{ route('admin.users.store') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -37,7 +37,7 @@
 
             <div class=" row form-group">
                 <label for="role">Role: </label>
-                <select id="role_id" name="role_id">
+                <select id="role_id" name="role_id" class="form-control">
                     @foreach ($roles AS $role)
                     <option value="{{ $role->id }}" {{ $role->name=='User'?'selected':'' }} >
                         {{ $role->name }}
@@ -48,7 +48,7 @@
 
             <div class=" row form-group">
                 <label for="role">Active: </label>
-                <select id="is_active" name="is_active">
+                <select id="is_active" name="is_active" class="form-control">
                     <option value="0">No</option>
                     <option value="1" selected="true">Yes</option>
                 </select>

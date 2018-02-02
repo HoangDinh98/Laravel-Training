@@ -8,6 +8,12 @@ use Carbon\Carbon;
 @section('content')
 <h1>All Media</h1>
 <div class="box-content">
+    @if (Session::has('notification'))
+    <div class="alert alert-success" id="notify">
+        <button data-dismiss="alert" class="close">×</button>
+        {{ Session::get('notification') }}
+    </div>
+    @endif
     <h2>Thumbnail</h2>
     @if(count($media) > 0)
     <div class="row">
@@ -42,9 +48,9 @@ use Carbon\Carbon;
             <img src="{{$value->photo?asset($value->photo):'http://placehold.it/400x300'}}" width="300px" alt="" class="img-responsive img-round">
             <h4>{{$value->post_name}}</h4>
             <input type="submit" name="submit" class="btn btn-danger" value="Delete">
-<!--            <button type="submit" name="submit" class="button-space button-a delete-button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </button>-->
+            <!--            <button type="submit" name="submit" class="button-space button-a delete-button">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>-->
         </form>
         @endif
         @endforeach

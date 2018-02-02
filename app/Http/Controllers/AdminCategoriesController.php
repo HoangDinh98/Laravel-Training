@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use App\Category;
 use App\Post;
 use App\Photo;
+use App\Http\Controllers\Standard;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -45,9 +47,11 @@ class AdminCategoriesController extends Controller {
             'name.required' => 'Category Name can not be empty'
         ]);
 
-        $input = ['name' => $request->input('name')];
+        $input = ['name' => Standard::standardize_data($request->input('name'),0)];
 
         Category::create($input);
+        
+        Session::flash('notification','Add Category <b>'.$input['name'].'</b> Successful');
         return $this->index();
     }
 
@@ -87,9 +91,13 @@ class AdminCategoriesController extends Controller {
         ]);
 
         $category = Category::findOrFail($id);
-
-        $category->update($request->all());
-
+        
+        $input = $request->all();
+        $input['name'] = Standard::standardize_data($input['name'], 0);
+        $category->update($input);
+        
+        Session::flash('notification','Update Category <b>'.$input['name'].'</b> Successful');
+        
         return redirect('/admin/categories');
     }
 
@@ -112,6 +120,8 @@ class AdminCategoriesController extends Controller {
                 }
             }
             $category->delete();
+            
+            Session::flash('notification','Delete Category <b>'.$category->name.'</b> Successful');
         }
         return redirect('/admin/categories');
     }

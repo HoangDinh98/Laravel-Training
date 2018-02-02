@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Session;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -89,7 +90,7 @@ class AdminPostsController extends Controller {
 
 //                $input['photo_id'] = $photo->id;
             }
-
+            Session::flash('notification', 'Add post <b>' . $input['name'] . '</b> Successful');
             return redirect('/admin/posts');
         } else {
             return view("errors.submit-error", ["data" => "Please login as administrator!"]);
@@ -115,7 +116,7 @@ class AdminPostsController extends Controller {
                 ->where([
                     ['posts.user_id', '=', $author_id],
                     ['photos.is_thumbnail', '=', 1]
-                    ])
+                ])
                 ->orderBy('posts.created_at', 'desc')
                 ->paginate(2);
         return view('admin.posts.show_by_author', compact('posts'));
@@ -164,6 +165,7 @@ class AdminPostsController extends Controller {
         $user = Auth::user();
         if ($user) {
             $post = Post::findOrFail($id);
+//            $old_name = $post->name;
             $post->update($request->all());
 
             if ($file = $request->file('photo_id')) {
@@ -189,7 +191,8 @@ class AdminPostsController extends Controller {
 
 //                $input['photo_id'] = $photo->id;
             }
-
+            
+            Session::flash('notification','Update Post <b>'.$request['title'].'</b> Successful');
             return redirect('/admin/posts');
         } else {
             return view("errors.submit-error", ["data" => "Please login as administrator!"]);
@@ -209,6 +212,7 @@ class AdminPostsController extends Controller {
             $folder = str_before($photos->path, $id) . $id;
             File::deleteDirectory(public_path($folder));
             $post->delete();
+            Session::flash('notification','Delete posts <b>'.$post['name'].'</b> Successful');
         }
         return redirect('/admin/posts');
     }

@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\File;
 
 @section('content')
 <h1>Posts</h1>
+@if (Session::has('notification'))
+<div class="alert alert-success" id="notify">
+    <button data-dismiss="alert" class="close">×</button>
+    {!! Session::get('notification') !!}
+</div>
+@endif
+
 <table class="table">
     <thead>
         <tr>
@@ -35,7 +42,7 @@ use Illuminate\Support\Facades\File;
             <td><a href="{{ route('admin.posts.showByAuthor', $post->user_id) }}">{{ $post->owner }}</a></td>
             <td>{{ $post->category }}</td>
             <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}">{{$post->title}}</a></td>
-            <td>{{str_limit($post->body, 30)}}</td>
+            <td>{{str_limit(strip_tags($post->body), 30)}}</td>
             <td>{{Carbon::parse($post->created_at)->diffForHumans()}}</td>
             <td>{{Carbon::parse($post->updated_at)->diffForHumans()}}</td>
             <td>
