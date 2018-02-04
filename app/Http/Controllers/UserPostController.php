@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 use App\Comment;
+use App\Post;
+use App\Category;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -46,8 +47,29 @@ class UserPostController extends Controller {
             $input['is_active'] = 1;
             $comment->create($input);
         }
+
+        return redirect('post/' . $input['post_id']);
+    }
+
+    public function search() {
+//        if ($request->search_text !="") {
+//            $posts = Post::search($request->search_text)->paginate(3);
+//            $search_text = $request->search_text;
+//        } else {
+//            $posts = Post::search($text)->paginate(3);
+//            $search_text = $text;
+//        }
+
+//        $posts = Post::search($_GET['search_text'])->paginate();
+//        $numresult = count($posts);
         
-        return redirect('post/'.$input['post_id']);
+        $posts = Post::search($_GET['search_text'])->paginate(3);
+        $posts->setPath('search?search_text='.$_GET['search_text']);
+        $search_text = $_GET['search_text'];
+        $is_search = 1;
+        $categories = Category::all();
+//        print_r($posts);
+        return view('home', compact('posts', 'is_search', 'search_text', 'categories'));
     }
 
     public function store(Request $request) {

@@ -68,3 +68,7 @@
 .post-box {
     margin: 10px 0;
 }
+
+.category-style{
+    column-count: 2;
+}

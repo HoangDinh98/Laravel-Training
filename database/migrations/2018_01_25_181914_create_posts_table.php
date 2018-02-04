@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration {
             $table->integer('category_id')->unsigned()->nullable();
             $table->text('title')->nullable();
             $table->text('body')->nullable();
-            $table->text('slug')->nullable();
             $table->timestamps();
         });
 
@@ -30,6 +29,8 @@ class CreatePostsTable extends Migration {
                     ->references('id')->on('categories')
                     ->onDelete('cascade');
         });
+
+        DB::statement('ALTER TABLE posts ADD FULLTEXT fulltext_index (title, body)');
     }
 
     /**
@@ -38,6 +39,10 @@ class CreatePostsTable extends Migration {
      * @return void
      */
     public function down() {
+        Schema::table('posts', function($table) {
+            $table->dropIndex('fulltext_index');
+        });
+        
         Schema::dropIfExists('posts');
     }
 
