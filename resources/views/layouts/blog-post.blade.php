@@ -73,6 +73,12 @@
                                                document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
+                                    
+                                    @if(Auth::user()->role()->name == 'Admin')
+                                    <a href="{{ route('admin.users.index') }}" target="_blank">
+                                        Admin Dashboard
+                                    </a>
+                                    @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}

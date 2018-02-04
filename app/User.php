@@ -30,6 +30,14 @@ class User extends Authenticatable
     
      public function role()
     {
-        return $this->belongsTo('App\Role');
+        return $this->belongsTo('App\Role')->first();
+    }
+    
+    public function photos() {
+        return $this->hasMany('App\Photo');
+    }
+    
+    public function avatar() {
+        return $this->photos()->where('is_thumbnail','=', 1)->first();
     }
 }

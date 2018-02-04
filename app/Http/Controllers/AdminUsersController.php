@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 use App\User;
 use App\Role;
+use App\Photo;
 use App\Http\Controllers\Standard;
 
 date_default_timezone_set("Asia/Ho_Chi_Minh");
@@ -53,10 +55,11 @@ class AdminUsersController extends Controller {
     public function store(Request $request) {
         if (isset($_POST['submit'])) {
             $this->validate($request, [
-                'email' => 'required|email|min:16|max:100',
+                'email' => 'required|email|min:16|max:100|unique:users,email',
                 'name' => 'required|min:5|max:30',
                 'password' => 'required|min:8|max:20',
                 'repassword' => 'required|same:password',
+                'avatar' => 'mimes:jpg,jpeg,png|max:5000',
                     ], [
                 'email.required' => 'Email can not be empty',
                 'email.min' => 'Email can not be shoter 6 letters',
@@ -67,15 +70,41 @@ class AdminUsersController extends Controller {
                 'password.required' => 'Password can not be empty',
                 'password.min' => 'Password can not be shoter 8 letters',
                 'password.max' => 'Password can not be over 20 letters',
+                'avatar.mimes' => 'Photo fomart must be jpg png jpeg',
             ]);
-
 
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
 
             $input['name'] = Standard::standardize_data($input['name'], 1);
 
-            User::create($input);
+            $data = User::create($input);
+
+//            Insert Image
+//            $post = new Post();
+
+            $user_id = $data->id;
+
+            if ($file = $request->file('avatar')) {
+                $year = date('Y');
+                $month = date('m');
+                $day = date('d');
+                $sub_folder = 'users/' . $user_id . '/' . $year . '/' . $month . '/' . $day . '/';
+                $upload_url = 'images/' . $sub_folder;
+
+                if (!File::exists(public_path() . '/' . $upload_url)) {
+                    File::makeDirectory(public_path() . '/' . $upload_url, 0777, true);
+                }
+
+                $name = time() . $file->getClientOriginalName();
+
+
+                $file->move($upload_url, $name);
+                Photo::create(['user_id' => $user_id, 'path' => $upload_url . $name]);
+
+//                $input['photo_id'] = $photo->id;
+            }
+
 
             Session::flash('notification', 'Add user <b>' . $input['name'] . '</b> Successful');
             return redirect('/admin/users');
@@ -129,24 +158,47 @@ class AdminUsersController extends Controller {
         if (isset($_POST['submit'])) {
             $this->validate($request, [
                 'name' => 'required|min:5|max:30',
+                'avatar' => 'mimes:jpg,jpeg,png|max:5000',
                     ], [
                 'name.required' => 'Name can not be empty',
                 'name.min' => 'Name can not be shoter 5 letters',
                 'name.max' => 'Name can not be over 30 letters',
+                'avatar.mimes' => 'Photo fomart must be jpg png jpeg',
             ]);
         }
         $user = User::findOrFail($id);
 
         if (trim($request->password) == '') {
-
             $input = $request->except('password');
         } else {
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
         }
         $input['name'] = Standard::standardize_data($input['name'], 1);
-
         $user->update($input);
+
+//        Upload photo if exist
+        if ($file = $request->file('avatar')) {
+            $user_id = $id;
+            Photo::where('user_id', '=', $user_id)->update(['is_thumbnail' => 0]);
+            
+            $year = date('Y');
+            $month = date('m');
+            $day = date('d');
+            $sub_folder = 'users/' . $user_id . '/' . $year . '/' . $month . '/' . $day . '/';
+            $upload_url = 'images/' . $sub_folder;
+
+            if (!File::exists(public_path() . '/' . $upload_url)) {
+                File::makeDirectory(public_path() . '/' . $upload_url, 0777, true);
+            }
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move($upload_url, $name);
+            Photo::create(['user_id' => $user_id, 'path' => $upload_url . $name]);
+        }
+        
+        
         Session::flash('notification', 'Update user <b>' . $input['name'] . '</b> Successful');
         return redirect('/admin/users');
     }

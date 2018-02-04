@@ -61,7 +61,7 @@ class AdminPostsController extends Controller {
             'title' => 'required',
             'body' => 'required',
             'photo_id' => 'mimes:jpg,jpeg,png|max:5000',
-        ], [
+                ], [
             'photo_id.mimes' => 'Photo fomart must be jpg png jpeg',
         ]);
 
@@ -161,7 +161,10 @@ class AdminPostsController extends Controller {
     public function update(Request $request, $id) {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'photo_id' => 'mimes:jpg,jpeg,png|max:5000',
+                ], [
+            'photo_id.mimes' => 'Photo fomart must be jpg png jpeg',
         ]);
 
         $input = $request->all();
@@ -194,8 +197,8 @@ class AdminPostsController extends Controller {
 
 //                $input['photo_id'] = $photo->id;
             }
-            
-            Session::flash('notification','Update Post <b>'.$request['title'].'</b> Successful');
+
+            Session::flash('notification', 'Update Post <b>' . $request['title'] . '</b> Successful');
             return redirect('/admin/posts');
         } else {
             return view("errors.submit-error", ["data" => "Please login as administrator!"]);
@@ -215,7 +218,7 @@ class AdminPostsController extends Controller {
             $folder = str_before($photos->path, $id) . $id;
             File::deleteDirectory(public_path($folder));
             $post->delete();
-            Session::flash('notification','Delete posts <b>'.$post['name'].'</b> Successful');
+            Session::flash('notification', 'Delete posts <b>' . $post['name'] . '</b> Successful');
         }
         return redirect('/admin/posts');
     }
