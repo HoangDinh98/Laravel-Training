@@ -107,7 +107,10 @@ class AdminUsersController extends Controller {
 
 
             Session::flash('notification', 'Add user <b>' . $input['name'] . '</b> Successful');
+//            return redirect()->back();
             return redirect('/admin/users');
+//            
+//            
 //            if (!$request->session()->exists('users'))
 //                $request->session()->put('users', array());
 //
@@ -201,6 +204,7 @@ class AdminUsersController extends Controller {
         
         Session::flash('notification', 'Update user <b>' . $input['name'] . '</b> Successful');
         return redirect('/admin/users');
+//        return redirect()->back();
     }
 
     /**
@@ -215,6 +219,7 @@ class AdminUsersController extends Controller {
         $user->update(['is_active' => 0]);
         Session::flash('notification', 'Delete user <b>' . $user->name . '</b> Successful');
         return redirect('/admin/users');
+//        return redirect()->back();
     }
 
 }

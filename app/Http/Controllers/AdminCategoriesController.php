@@ -21,7 +21,8 @@ class AdminCategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $categories = Category::orderBy('created_at', 'desc')->paginate(5);;
+        $categories = Category::orderBy('created_at', 'desc')->paginate(5);
+        ;
         return view('admin.categories.index', ['categories' => $categories]);
     }
 
@@ -47,11 +48,11 @@ class AdminCategoriesController extends Controller {
             'name.required' => 'Category Name can not be empty'
         ]);
 
-        $input = ['name' => Standard::standardize_data($request->input('name'),0)];
+        $input = ['name' => Standard::standardize_data($request->input('name'), 0)];
 
         Category::create($input);
-        
-        Session::flash('notification','Add Category <b>'.$input['name'].'</b> Successful');
+
+        Session::flash('notification', 'Add Category <b>' . $input['name'] . '</b> Successful');
         return $this->index();
     }
 
@@ -91,14 +92,15 @@ class AdminCategoriesController extends Controller {
         ]);
 
         $category = Category::findOrFail($id);
-        
+
         $input = $request->all();
         $input['name'] = Standard::standardize_data($input['name'], 0);
         $category->update($input);
-        
-        Session::flash('notification','Update Category <b>'.$input['name'].'</b> Successful');
-        
-        return redirect('/admin/categories');
+
+        Session::flash('notification', 'Update Category <b>' . $input['name'] . '</b> Successful');
+
+//        return redirect('/admin/categories');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -120,9 +122,11 @@ class AdminCategoriesController extends Controller {
                 }
             }
             $category->delete();
-            
-            Session::flash('notification','Delete Category <b>'.$category->name.'</b> Successful');
+
+            Session::flash('notification', 'Delete Category <b>' . $category->name . '</b> Successful');
         }
-        return redirect('/admin/categories');
+//        return redirect('/admin/categories');
+        return redirect()->route('admin.categories.index');
     }
+
 }

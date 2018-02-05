@@ -52,13 +52,17 @@ class UserPostController extends Controller {
         return redirect()->back();
     }
     
-    public function addChildComment(Request $request) {
+    public function addChildComment(Request $request, $post_id, $parent_id) {
         $input = $request->all();
         $user = Auth::user();
         if ($user) {
             $comment = new Comment();
             $input['author'] = $user->name;
             $input['email'] = $user->email;
+            $input['post_id'] = $post_id;
+            $input['parent_id'] = $parent_id;
+//            print_r($input);
+//            var_dump($input);
             $comment->create($input);
         }
         return redirect()->back();

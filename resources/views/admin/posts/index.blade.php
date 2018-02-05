@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\File;
             <th>Content</th>
             <th>Created at</th>
             <th>Updated at</th>
-            <th>Action</th>
+            <th style="width: 15%">Action</th>
         </tr>
     </thead>
     <tbody>

@@ -52,7 +52,7 @@ class HomeController extends Controller {
                     ['photos.is_thumbnail', '=', 1]
                 ])
                 ->first();
-        $comments = Comment::where('post_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $comments = Comment::where([['post_id', $id], ['parent_id', 0]])->orderBy('created_at', 'desc')->paginate(5);
         $categories = Category::all();
         return view('post', compact('post', 'comments', 'categories'));
     }

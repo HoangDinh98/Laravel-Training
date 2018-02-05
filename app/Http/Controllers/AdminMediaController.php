@@ -108,5 +108,6 @@ class AdminMediaController extends Controller {
             Session::flash('notification','Delete Photo Successful');
         }
         return redirect('/admin/media');
+//        return redirect()->back();
     }
 }

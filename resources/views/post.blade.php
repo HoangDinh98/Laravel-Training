@@ -67,7 +67,7 @@ use Illuminate\Support\Facades\File;
         </div>
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Create Comment" />
+            <input type="submit" class="btn btn-primary" value="Comment Now" />
         </div>
     </form>
 
@@ -90,22 +90,40 @@ use Illuminate\Support\Facades\File;
     </div>
     @if(Auth::check())
     <div class="col-md-12">
+        @if(count($comment->childComment($comment->id)) > 0)
+
+        @foreach($comment->childComment($comment->id) AS $key => $childcomment)
+        <div class="col-md-11 col-md-offset-0 child-cmt-box">
+            <div class="child-cmt-content">
+                <span style="font-weight: bold">
+                    {{$childcomment->author}}
+                </span>
+                <span>:&nbsp;&nbsp;{{$childcomment->body}}</span>
+            </div>
+            <div style="text-align: right">
+                {{$childcomment->created_at->diffForHumans()}}
+            </div>
+        </div>
+        @endforeach
+
+        @endif
+
         <button data-toggle="collapse" data-target="#reply-{{$comment->id}}" class="btn btn-info">
             <i class="fa fa-reply" aria-hidden="true"></i>
             Reply
         </button>
-        <div id="reply-{{$comment->id}}" class="collapse">
-            <form method="POST" action="{{ route('user.posts.addChildComment') }}">
-                <h4>Leave a Comment:</h4>
+        <div id="reply-{{$comment->id}}" class="collapse col-md-11 col-md-offset-0">
+            <form method="POST" action="{{ route('user.posts.addChildComment', [$post->id,$comment->id]) }}">
+                <h4>Leave a Reply:</h4>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                <input type="hidden" name="post_id" value="{{$post->id}}">
-                <input type="hidden" name="parent_id" value="{{$comment->id}}">
+<!--                <input type="hidden" name="post_id" value="{{$post->id}}">
+                <input type="hidden" name="parent_id" value="{{$comment->id}}">-->
                 <div class="form-group">
                     <textarea class="form-control" rows="5" id="comment" name="body"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Create Post" />
+                    <input type="submit" class="btn btn-primary" value="Reply Now" />
                 </div>
             </form>
         </div>

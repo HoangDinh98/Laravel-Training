@@ -39,7 +39,7 @@
 }
 
 .form-delete{
-   display: inline-block; 
+    display: inline-block; 
 }
 
 
@@ -71,4 +71,14 @@
 
 .category-style{
     column-count: 2;
+}
+
+.child-cmt-box {
+    padding-bottom: 15px;
+}
+
+.child-cmt-content {
+    background-color: #FFFFAF;
+    border-radius: 10px;
+    padding: 5px 15px;
 }

@@ -94,7 +94,8 @@ class AdminPostsController extends Controller {
 //                $input['photo_id'] = $photo->id;
             }
             Session::flash('notification', 'Add post <b>' . $input['title'] . '</b> Successful');
-            return redirect('/admin/posts');
+//            return redirect('/admin/posts');
+            return redirect()->route('admin.posts.index');
         } else {
             return view("errors.submit-error", ["data" => "Please login as administrator!"]);
         }
@@ -199,7 +200,8 @@ class AdminPostsController extends Controller {
             }
 
             Session::flash('notification', 'Update Post <b>' . $request['title'] . '</b> Successful');
-            return redirect('/admin/posts');
+//            return redirect('/admin/posts');
+            return redirect()->route('admin.posts.index');
         } else {
             return view("errors.submit-error", ["data" => "Please login as administrator!"]);
         }
@@ -220,7 +222,8 @@ class AdminPostsController extends Controller {
             $post->delete();
             Session::flash('notification', 'Delete posts <b>' . $post['name'] . '</b> Successful');
         }
-        return redirect('/admin/posts');
+//        return redirect('/admin/posts');
+        return redirect()->route('admin.posts.index');
     }
 
 }
