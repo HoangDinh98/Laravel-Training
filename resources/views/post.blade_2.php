@@ -95,7 +95,7 @@ use Illuminate\Support\Facades\File;
             Reply
         </button>
         <div id="reply-{{$comment->id}}" class="collapse">
-            <form method="POST" action="{{ route('user.posts.addChildComment') }}">
+            <form method="POST" action="">
                 <h4>Leave a Comment:</h4>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="post_id" value="{{$post->id}}">

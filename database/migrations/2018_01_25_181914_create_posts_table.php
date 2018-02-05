@@ -39,10 +39,6 @@ class CreatePostsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::table('posts', function($table) {
-            $table->dropIndex('fulltext_index');
-        });
-        
         Schema::dropIfExists('posts');
     }
 

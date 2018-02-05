@@ -65,6 +65,9 @@ Auth::routes();
 Route::post('/posts/addComment/{id}',"UserPostController@addComment")->name('user.posts.addComment');
 Auth::routes();
 
+Route::post('/posts/addChildComment',"UserPostController@addChildComment")->name('user.posts.addChildComment');
+Auth::routes();
+
 //Route::post('/user/search/{text}',"UserPostController@search")->name('user.search');
 //Auth::routes();
 

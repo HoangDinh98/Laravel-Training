@@ -44,24 +44,27 @@ class UserPostController extends Controller {
             $comment = new Comment();
             $input['author'] = $user->name;
             $input['email'] = $user->email;
-            $input['is_active'] = 1;
+//            $input['is_active'] = 1;
+            $input['parent_id'] = 0;
             $comment->create($input);
         }
 
-        return redirect('post/' . $input['post_id']);
+        return redirect()->back();
+    }
+    
+    public function addChildComment(Request $request) {
+        $input = $request->all();
+        $user = Auth::user();
+        if ($user) {
+            $comment = new Comment();
+            $input['author'] = $user->name;
+            $input['email'] = $user->email;
+            $comment->create($input);
+        }
+        return redirect()->back();
     }
 
     public function search() {
-//        if ($request->search_text !="") {
-//            $posts = Post::search($request->search_text)->paginate(3);
-//            $search_text = $request->search_text;
-//        } else {
-//            $posts = Post::search($text)->paginate(3);
-//            $search_text = $text;
-//        }
-
-//        $posts = Post::search($_GET['search_text'])->paginate();
-//        $numresult = count($posts);
         
         $posts = Post::search($_GET['search_text'])->paginate(3);
         $posts->setPath('search?search_text='.$_GET['search_text']);
