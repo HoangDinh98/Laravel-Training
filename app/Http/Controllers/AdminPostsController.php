@@ -7,6 +7,7 @@ use App\Post;
 use App\Category;
 use App\User;
 use App\Photo;
+use App\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -108,7 +109,8 @@ class AdminPostsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
+        $comments = Comment::oderBy('created_at', 'desc');
+        return view();
     }
 
     public function showByAuthor($author_id) {
