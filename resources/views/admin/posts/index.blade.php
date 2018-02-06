@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\File;
             <th>Content</th>
             <th>Created at</th>
             <th>Updated at</th>
-            <th style="width: 15%">Action</th>
+            <th style="width: 17%">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -46,8 +46,9 @@ use Illuminate\Support\Facades\File;
             <td>{{Carbon::parse($post->created_at)->diffForHumans()}}</td>
             <td>{{Carbon::parse($post->updated_at)->diffForHumans()}}</td>
             <td>
+                <a class="button-a view-button" href="{{route('home.post', $post->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                 <a class="button-a edit-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-                <a class="button-a edit-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-comments-o" aria-hidden="true"></i></a>&nbsp;
+                <a class="button-a view-cmt-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-comments-o" aria-hidden="true"></i></a>&nbsp;
                 <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST" class="form-delete"> 
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>

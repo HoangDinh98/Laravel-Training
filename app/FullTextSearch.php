@@ -22,7 +22,10 @@ trait FullTextSearch {
      */
     protected function fullTextWildcards($term) {
         // removing symbols used by MySQL
-        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+        // 
+        // Original
+//        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+        $reservedSymbols = ['+', '<', '>', '@', '(', ')', '~'];
         $term = str_replace($reservedSymbols, '', $term);
 
         $words = explode(' ', $term);

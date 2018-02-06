@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\File;
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Status</th>
             <th>Created Date</th>
             <th>Action</th>
         </tr>
@@ -50,10 +51,11 @@ use Illuminate\Support\Facades\File;
             <td><a href="{{route('admin.users.edit', $user->id)}}">{{ $user->name }}</a></td>
             <td>{{ $user->email }}</td>
             <td>{{ $user->role() ? $user->role()->name:'Another' }}</td>
+            <td>{{ $user->is_active==1?'Actived':'No Actived' }}</td>
             <td>{{ $user->created_at }}</td>
             <td>
                 <a class="button-a edit-button" href="{{route('admin.users.edit', $user->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-                @if($user->id !=1)
+<!--                @if($user->id !=1)
                 <form action="{{route('admin.users.destroy', $user->id)}}" method="POST" class="form-delete"> 
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
@@ -61,7 +63,7 @@ use Illuminate\Support\Facades\File;
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </form>
-                @endif
+                @endif-->
             </td>
         </tr>
         @endforeach

@@ -52,6 +52,12 @@
                 <input type="file" id="avatar" name="avatar" class="form-control" value="{{ old('avatar') }}">
                 <span class="text-danger">{{ $errors->first('avatar') }}</span>
             </div> 
+            
+            <div class=" form-group {{ $errors->has('is_active') ? 'has-error' : '' }}">
+                    <label for="category_id">Is active account:</label>
+                    <input type="checkbox" id="is_active" name="is_active" value="1" @if ( $user->is_active == 1 ) checked   @endif />
+                    <span class="text-danger">{{ $errors->first('is_active') }}</span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" name="submit" class="btn btn-success" value="submit" />

@@ -25,14 +25,14 @@ class AdminMediaController extends Controller {
                 ->select('posts.title AS post_name', 'photos.id AS photo_id', 'photos.path AS photo')
                 ->where('photos.is_thumbnail', '=', 1)
                 ->orderBy('posts.created_at', 'desc')
-                ->paginate(5);
+                ->paginate(6);
 
         $mediafull = DB::table('posts')
                 ->join('photos', 'posts.id', '=', 'photos.post_id')
                 ->select('posts.title AS post_name', 'photos.id AS photo_id', 'photos.path AS photo')
                 ->where('photos.is_thumbnail', '!=', 1)
                 ->orderBy('posts.created_at', 'desc')
-                ->paginate(5);
+                ->paginate(6);
 
         return view('admin.media.index', compact('media', 'mediafull'));
     }

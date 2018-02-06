@@ -31,7 +31,8 @@ class AdminUsersController extends Controller {
 //                ->get();
 //        Use Relation
 
-        $users = User::where('is_active', '=', 1)->orderBy('created_at', 'desc')->paginate(5);
+//        $users = User::where('is_active', '=', 1)->orderBy('created_at', 'desc')->paginate(5);
+         $users = User::orderBy('created_at', 'desc')->paginate(5);
 
         return view('admin.users.index', ['users' => $users]);
     }
@@ -178,6 +179,11 @@ class AdminUsersController extends Controller {
             $input['password'] = bcrypt($request->password);
         }
         $input['name'] = Standard::standardize_data($input['name'], 1);
+//        print_r($input);
+        if(!isset($_POST['is_active'])) {
+            $input['is_active'] = 0;
+        }
+        
         $user->update($input);
 
 //        Upload photo if exist

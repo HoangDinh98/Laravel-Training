@@ -1,6 +1,7 @@
 .button-a {
     padding: 2px 5px;
     color: #93a1a1;
+    font-size: 28px;
 }
 
 .button-space {
@@ -12,6 +13,17 @@
 .edit-button {
     color: #009688;
     font-size: 28px;
+}
+
+.view-button {
+    color: #ff9800;
+}
+
+.view-cmt-button {
+    color: #00bcd4;
+    /*color: #3f51b5;*/
+    /*color: #1f51C5;*/
+
 }
 
 .edit-button:hover {
@@ -34,6 +46,8 @@
 
 
 .button-a:hover, .button-a:active, .button-a:focus {
+    background-color: #DDDDDD;
+    border-radius: 5px;
     cursor: pointer !important;
     text-decoration: none;
 }
