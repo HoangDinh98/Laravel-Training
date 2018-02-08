@@ -146,9 +146,10 @@ class AdminUsersController extends Controller {
     public function edit($id) {
 //        echo '<script>alert("'.$id.'");</script>';
         $user = User::find($id);
+        $roles = Role::all();
 //        echo '<script>alert("'.var_dump($user).'");</script>';
 //        sleep(20);
-        return view('admin.users.edit', ['user' => $user]);
+        return view('admin.users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
     /**
