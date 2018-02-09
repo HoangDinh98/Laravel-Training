@@ -3,7 +3,7 @@
 <!--  <script>tinymce.init({ selector:'textarea' });</script>-->
 <script>
   var editor_config = {
-    path_absolute : "/",
+    path_absolute : "/laravel-training/public/",
     selector: "textarea",
     plugins: [
       "advlist autolink lists link image charmap print preview hr anchor pagebreak",
