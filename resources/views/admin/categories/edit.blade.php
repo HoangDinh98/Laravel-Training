@@ -11,7 +11,7 @@
         <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="_method" value="PUT">
-            
+
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">Category Name:</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Enter Category Name"
@@ -23,11 +23,16 @@
                 <input type="submit" name="submit" class="btn btn-success" value="submit" />
             </div>
         </form>
-        
-        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+
+        <form id="category_{{$category->id}}" action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-            <input type="submit" name="delete_submit" class="btn btn-danger" value="Delete">
+            <p id="name_{{$category->id}}" style="display: none">{{$category->name}}</p>
+            <!--<input type="submit" name="delete_submit" class="btn btn-danger" value="Delete">-->
+            <button type="button" name="buttonZ" class="button-space button-a delete-button delete-fnt"
+                    data-type="category" data-id="{{ $category->id }}">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
         </form>
     </div>
 </div>

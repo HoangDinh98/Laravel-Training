@@ -22,8 +22,8 @@
 
         <link rel="stylesheet" href="{{ url('bootstrap-3.3.7/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url('css/mystyle.css') }}">
-        <script src="{{ url('bootstrap-3.3.7/js/bootstrap.js') }}"></script>
         <script src="{{ url('bootstrap-3.3.7/js/jquery-3.2.1.js') }}"></script>
+        <script src="{{ url('bootstrap-3.3.7/js/bootstrap.js') }}"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,7 +42,7 @@
         <div id="wrapper">
 
             <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; z-index: 100;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -373,6 +373,12 @@
 
 
 </body>
+<link href="{{asset('confirm-form/notifier.style.css')}}" rel="stylesheet">
+<script src="{{asset('confirm-form/notifier.script.js')}}"></script>
 <script src="{{asset('js/myscript.js')}}"></script>
+
+<script>
+
+</script>
 
 </html>

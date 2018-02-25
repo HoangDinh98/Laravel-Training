@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\File;
             <th>Content</th>
             <th>Created at</th>
             <th>Updated at</th>
-            <th style="width: 17%">Action</th>
+            <th style="width: 20%">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\File;
             </td>
             <td><a href="{{ route('admin.posts.showByAuthor', $post->user_id) }}">{{ $post->owner }}</a></td>
             <td>{{ $post->category }}</td>
-            <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}">{{$post->title}}</a></td>
+            <td><a href="{{ url('admin/posts/'. $post->id.'/edit') }}" id="name_{{$post->id}}">{{$post->title}}</a></td>
             <td>{{str_limit(strip_tags($post->body), 30)}}</td>
             <td>{{Carbon::parse($post->created_at)->diffForHumans()}}</td>
             <td>{{Carbon::parse($post->updated_at)->diffForHumans()}}</td>
@@ -49,13 +49,24 @@ use Illuminate\Support\Facades\File;
                 <a class="button-a view-button" href="{{route('home.post', $post->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                 <a class="button-a edit-button" href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
                 <a class="button-a view-cmt-button" href="{{route('admin.posts.show', $post->id)}}"><i class="fa fa-comments-o" aria-hidden="true"></i></a>&nbsp;
-                <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST" class="form-delete"> 
+                <form id="post_{{ $post->id }}" action="{{route('admin.posts.destroy', $post->id)}}" method="POST" class="form-delete"> 
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <button type="submit" name="submit" class="button-space button-a delete-button">
+                    <!--                    <button type="button" name="buttonZ" class="button-space button-a delete-button delete-fnt"
+                                                onclick="confirmBeforeDelete({{ $post->id }}, 'post')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>-->
+
+                    <button type="button" name="buttonZ" class="button-space button-a delete-button delete-fnt"
+                            data-type="post" data-id="{{ $post->id }}">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </form>
+
+                <!--                <button type="button" name="submit" data-post-id="{{ $post->id }}" class="button-space button-a delete-button"
+                                        onclick="confirmBeforeDelete(1, 'a')">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </button>-->
             </td>
         </tr>
 
@@ -77,5 +88,6 @@ use Illuminate\Support\Facades\File;
     </div>
 
 </div>
+
 @endsection
 

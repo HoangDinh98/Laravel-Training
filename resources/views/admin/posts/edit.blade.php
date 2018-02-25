@@ -50,12 +50,17 @@
             <input type="submit" class="btn btn-success" value="Update Post" />
         </div>
     </form>
-    
-    <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST">
+
+    <form id="post_{{$post->id}}" action="{{ route('admin.posts.destroy', $post->id)}}" method="POST">
         <div class="form-group">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-            <input type="submit" name="delete_submit" class="btn btn-danger" value="Delete Post">
+            <p id="name_{{$post->id}}" style="display: none">{{$post->title}}</p>
+            <!--<input type="submit" name="delete_submit" class="btn btn-danger" value="Delete Post">-->
+            <button type="button" name="buttonZ" class="button-space button-a delete-button delete-fnt"
+                    data-type="post" data-id="{{ $post->id }}">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
         </div>
     </form>
 </div>

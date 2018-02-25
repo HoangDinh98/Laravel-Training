@@ -26,16 +26,21 @@
             @foreach ($categories AS $category )
             <tr>
                 <td>{{ $category->id }}</td>
-                <td><a href="{{route('admin.categories.edit', $category->id)}}">{{ $category->name }}</a></td>
+                <td><a id="name_{{$category->id}}" href="{{route('admin.categories.edit', $category->id)}}">{{ $category->name }}</a></td>
                 <td>{{ $category->created_at }}</td>
                 <td>{{ $category->updated_at }}</td>
                 <td>
                     <a class="button-a edit-button" href="{{route('admin.categories.edit', $category->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
                     <!--<a class="button-a delete-button" href="{{route('admin.categories.destroy', $category->id)}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
-                    <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST" class="form-delete"> 
+                    <form id="category_{{$category->id}}" action="{{route('admin.categories.destroy', $category->id)}}" method="POST" class="form-delete"> 
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <button type="submit" name="submit" class="button-space button-a delete-button">
+                        <!--                        <button type="submit" name="submit" class="button-space button-a delete-button">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>-->
+
+                        <button type="button" name="buttonZ" class="button-space button-a delete-button delete-fnt"
+                                data-type="category" data-id="{{ $category->id }}">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                     </form>
